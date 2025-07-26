@@ -33,6 +33,13 @@ let
                 _SegundaPassada, type text
             }
         }
+    ),
+    ColunaDataAdd = Table.AddColumn(
+        AtributoMesTratado, 
+        "Data", 
+        each Date.From(
+            "01/" & [Atributo] & "/" & [Ano], "pt-BR"
+        ), type date
     )
 in
-    AtributoMesTratado
+    ColunaDataAdd
