@@ -1,8 +1,8 @@
 let
     Fonte = Excel.Workbook(DadosConsolidados{6}[Content], true)[Data]{0},
-    #"Personalização Adicionada" = Table.AddColumn(Fonte, "DadosAdicionais", each [
+    DadosAdicionaisAdd = Table.AddColumn(Fonte, "DadosAdicionais", each [
     Ano = "2023",
     Empresa = "EmpresaAbc"
-])
+], type [Ano = text, Empresa = text])
 in
-    #"Personalização Adicionada"
+    DadosAdicionaisAdd
