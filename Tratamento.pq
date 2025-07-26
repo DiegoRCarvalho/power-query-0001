@@ -3,6 +3,7 @@ let
     DadosAdicionaisAdd = Table.AddColumn(Fonte, "DadosAdicionais", each [
     Ano = "2023",
     Empresa = "EmpresaAbc"
-], type [Ano = text, Empresa = text])
+], type [Ano = text, Empresa = text]),
+    DadosAdicionaisExpandido = Table.ExpandRecordColumn(DadosAdicionaisAdd, "DadosAdicionais", {"Ano", "Empresa"}, {"Ano", "Empresa"})
 in
-    DadosAdicionaisAdd
+    DadosAdicionaisExpandido
