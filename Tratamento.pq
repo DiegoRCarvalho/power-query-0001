@@ -4,6 +4,7 @@ let
     Ano = "2023",
     Empresa = "EmpresaAbc"
 ], type [Ano = text, Empresa = text]),
-    DadosAdicionaisExpandido = Table.ExpandRecordColumn(DadosAdicionaisAdd, "DadosAdicionais", {"Ano", "Empresa"}, {"Ano", "Empresa"})
+    DadosAdicionaisExpandido = Table.ExpandRecordColumn(DadosAdicionaisAdd, "DadosAdicionais", {"Ano", "Empresa"}, {"Ano", "Empresa"}),
+    Unpivot = Table.UnpivotOtherColumns(DadosAdicionaisExpandido, {"Cod item", "Ano", "Empresa"}, "Atributo", "Consumo")
 in
-    DadosAdicionaisExpandido
+    Unpivot
