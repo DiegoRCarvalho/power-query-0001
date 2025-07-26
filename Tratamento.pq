@@ -5,6 +5,7 @@ let
     Empresa = "EmpresaAbc"
 ], type [Ano = text, Empresa = text]),
     DadosAdicionaisExpandido = Table.ExpandRecordColumn(DadosAdicionaisAdd, "DadosAdicionais", {"Ano", "Empresa"}, {"Ano", "Empresa"}),
-    Unpivot = Table.UnpivotOtherColumns(DadosAdicionaisExpandido, {"Cod item", "Ano", "Empresa"}, "Atributo", "Consumo")
+    Unpivot = Table.UnpivotOtherColumns(DadosAdicionaisExpandido, {"Cod item", "Ano", "Empresa"}, "Atributo", "Consumo"),
+    #"Linhas Filtradas" = Table.SelectRows(Unpivot, each Text.StartsWith([Atributo], "Cons"))
 in
-    Unpivot
+    #"Linhas Filtradas"
