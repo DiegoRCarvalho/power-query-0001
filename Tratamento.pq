@@ -9,14 +9,30 @@ let
     LinhasFiltradas = Table.SelectRows(
         Unpivot, each 
         let
-            __FinalAtributo = Text.AfterDelimiter([Atributo],"-")
+            _FinalAtributo = Text.AfterDelimiter([Atributo],"-")
         in
         Text.StartsWith([Atributo], "Cons") and 
         (
-            __FinalAtributo = Text.End([Ano],2)
+            _FinalAtributo = Text.End([Ano],2)
             or
-            __FinalAtributo = ""
+            _FinalAtributo = ""
         )
+    ),
+    AtributoMesTratado = Table.TransformColumns(
+        LinhasFiltradas, {
+            {
+                "Atributo", each 
+                let
+                    _PrimeiraPassada = Text.AfterDelimiter(_, "Cons "),
+                    _StringProcurada = "mês ",
+                    _SegundaPassada = 
+                        if Text.StartsWith(_PrimeiraPassada, _StringProcurada) 
+                            then Text.AfterDelimiter(_PrimeiraPassada, _StringProcurada) 
+                            else Text.BeforeDelimiter(_PrimeiraPassada, "-")
+                in
+                _SegundaPassada, type text
+            }
+        }
     )
 in
-    LinhasFiltradas
+    AtributoMesTratado
