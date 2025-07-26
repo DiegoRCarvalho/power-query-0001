@@ -40,6 +40,7 @@ let
         each Date.From(
             "01/" & [Atributo] & "/" & [Ano], "pt-BR"
         ), type date
-    )
+    ),
+    ColunasSelecionadas = Table.SelectColumns(ColunaDataAdd,{"Empresa", "Cod item", "Data", "Consumo"})
 in
-    ColunaDataAdd
+    ColunasSelecionadas
