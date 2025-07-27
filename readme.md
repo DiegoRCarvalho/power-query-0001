@@ -14,6 +14,7 @@ Os dados utilizados neste projeto são **totalmente fictícios** e foram **gerad
 
 ### Depois:
 ![Tabela Pronta](img/TabelaPronta.png)
+![Tabela Pronta](img/Matriz.png)
 
 ## 📎 Referência
 
