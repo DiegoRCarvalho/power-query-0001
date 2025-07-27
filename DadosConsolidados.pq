@@ -22,6 +22,8 @@ let
             _Ano = [Ano],
             _Empresa = [Empresa]
         in
-            Table.AddColumn([Tabela],"DadosAdicionais", each [Ano = _Ano, Empresa = _Empresa]))
+            Table.AddColumn([Tabela],"DadosAdicionais", each [Ano = _Ano, Empresa = _Empresa])
+        , type [Ano = text, Empresa = text]
+    )
 in
     TabelaCompleta
