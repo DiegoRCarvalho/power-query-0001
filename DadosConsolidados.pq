@@ -11,7 +11,7 @@ let
         [
             Ano = _Ano,
             Empresa = Text.BeforeDelimiter([Name], _Ano)
-        ]
+        ], type [Ano = text, Empresa = text]
     )
 in
     CriarColunas
