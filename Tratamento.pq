@@ -1,11 +1,8 @@
+(Tabela)=>
+
 let
-    Fonte = Excel.Workbook(DadosConsolidados{6}[Content], true)[Data]{0},
-    DadosAdicionaisAdd = Table.AddColumn(Fonte, "DadosAdicionais", each [
-    Ano = "2025",
-    Empresa = "EmpresaAbc"
-], type [Ano = text, Empresa = text]),
-    DadosAdicionaisExpandido = Table.ExpandRecordColumn(DadosAdicionaisAdd, "DadosAdicionais", {"Ano", "Empresa"}, {"Ano", "Empresa"}),
-    Unpivot = Table.UnpivotOtherColumns(DadosAdicionaisExpandido, {"Cod item", "Ano", "Empresa"}, "Atributo", "Consumo"),
+    Fonte = Table.ExpandRecordColumn(Tabela, "DadosAdicionais", {"Ano", "Empresa"}, {"Ano", "Empresa"}),
+    Unpivot = Table.UnpivotOtherColumns(Fonte, {"Cod item", "Ano", "Empresa"}, "Atributo", "Consumo"),
     LinhasFiltradas = Table.SelectRows(
         Unpivot, each 
         let
