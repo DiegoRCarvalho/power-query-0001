@@ -13,6 +13,7 @@ let
             Empresa = Text.BeforeDelimiter([Name], _Ano)
         ], type [Ano = text, Empresa = text]
     ),
-    CriarColunasExpandido = Table.ExpandRecordColumn(CriarColunas, "CriarColunas", {"Ano", "Empresa"}, {"Ano", "Empresa"})
+    CriarColunasExpandido = Table.ExpandRecordColumn(CriarColunas, "CriarColunas", {"Ano", "Empresa"}, {"Ano", "Empresa"}),
+    TabelasExtraidas = Table.AddColumn(CriarColunasExpandido, "Tabela", each Excel.Workbook([Content], true)[Data]{0}, type table)
 in
-    CriarColunasExpandido
+    TabelasExtraidas
