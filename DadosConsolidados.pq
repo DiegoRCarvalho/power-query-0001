@@ -25,6 +25,7 @@ let
             Table.AddColumn([Tabela],"DadosAdicionais", each [Ano = _Ano, Empresa = _Empresa])
         , type [Ano = text, Empresa = text]
     ),
-    FuncaoInvocada = Table.AddColumn(TabelaCompleta, "TabelaTratada", each Tratamento([TabelaCompleta]), type table [Empresa = text, Cod item = text, Data = date, Consumo = number])
+    FuncaoInvocada = Table.AddColumn(TabelaCompleta, "TabelaTratada", each Tratamento([TabelaCompleta]), type table [Empresa = text, Cod item = text, Data = date, Consumo = number]),
+    ColunaSelecionada = Table.SelectColumns(FuncaoInvocada,{"TabelaTratada"})
 in
-    FuncaoInvocada
+    ColunaSelecionada
