@@ -25,7 +25,10 @@ let
             Table.AddColumn([Tabela],"DadosAdicionais", each [Ano = _Ano, Empresa = _Empresa])
         , type [Ano = text, Empresa = text]
     ),
-    FuncaoInvocada = Table.AddColumn(TabelaCompleta, "TabelaTratada", each Tratamento([TabelaCompleta]), type table [Empresa = text, Cod item = text, Data = date, Consumo = number]),
-    ColunaSelecionada = Table.SelectColumns(FuncaoInvocada,{"TabelaTratada"})
+    FuncaoInvocada = Table.AddColumn(TabelaCompleta, "TabelaTratada", each Tratamento([TabelaCompleta])),
+    ColunaSelecionada = Table.SelectColumns(FuncaoInvocada,{"TabelaTratada"}),
+    ExpandirColunas = Table.ExpandTableColumn(ColunaSelecionada, "TabelaTratada", {"Empresa", "Cod item", "Data", "Consumo"}, {"Empresa", "Cod item", "Data", "Consumo"}),
+    SubstituirPontoPorVirgula = Table.ReplaceValue(ExpandirColunas,".",",",Replacer.ReplaceText,{"Consumo"}),
+    FinalDoEtl = Table.TransformColumnTypes(SubstituirPontoPorVirgula,{{"Empresa", type text}, {"Cod item", type text}, {"Data", type date, "pt-BR"}, {"Consumo", Currency.Type, "pt-BR"}})
 in
-    ColunaSelecionada
+    FinalDoEtl
